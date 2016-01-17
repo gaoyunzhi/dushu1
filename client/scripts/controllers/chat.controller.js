@@ -10,8 +10,6 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
   this.inputUp = inputUp;
   this.inputDown = inputDown;
   this.closeKeyboard = closeKeyboard;
-  this.sendPicture = sendPicture;
-  console.log($scope);
   this.helpers({
     messages() {
       return Messages.find({ user_id: $scope.currentUser._id });
@@ -19,6 +17,7 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
   });
 
   function texts(message) {
+    console.log(message, 'yunzhi_m');
     return Text.find({_id: message.text_id});
   }
 

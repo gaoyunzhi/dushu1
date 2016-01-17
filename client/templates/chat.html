@@ -6,7 +6,7 @@
     <div class="message-list">
       <div ng-repeat="message in chat.messages" class="message-wrapper">
         <div class="message" ng-class="message.type === 'send' ? 'message-mine' : 'message-other'">
-          <div ng-switch-when="text" class="text">{{chat.text(message)}}</div> 
+          <div class="text">{{chat.text(message)}}</div> 
           <span class="message-timestamp">{{chat.text(message).timestamp | amDateFormat: 'HH:MM'}}</span>
         </div>
       </div>

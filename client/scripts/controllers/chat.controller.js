@@ -4,30 +4,21 @@ angular
  
 function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeout, $ionicPopup, $log) {
   $reactive(this).attach($scope);
+
+  $scope.$meteorSubscribe('messages').then(function() {
+      // This swill get you the articles from the local collection
+      $scope.messages = $scope.$meteorCollection(Messages);
+      // then you need to get the related Categories for the articles
+      $scope.getText = function(message) {
+        return $scope.$meteorObject(Text, message.text_id);
+      }
+  });
  
   let isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
   this.sendMessage = sendMessage
   this.inputUp = inputUp;
   this.inputDown = inputDown;
   this.closeKeyboard = closeKeyboard;
-  this.helpers({
-    messages() {
-      console.log("yunzhi_4");
-      messages = Messages.find({ user_id: $scope.currentUser._id });
-      messages.forEach(message => {
-        text = Text.find({_id: message.text_id});
-        message.text = text;
-        console.log(text);
-      });
-      console.log(messages);
-      return messages;
-    },
-
-    text() {
-      console.log(this);
-      return {};
-    }
-  });
 
   function sendMessage() {
     if (_.isEmpty(this.message)) return;
@@ -37,7 +28,11 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
     delete this.message;
   }
 
-  $scope.$watchCollection('chat.messages', (oldVal, newVal) => {
+  $scope.$watchCollection('messages', (oldVal, newVal) => {
+    console.log(oldVal, newVal);
+    if (!oldVal || !newVal) {
+      return
+    }
     let animate = oldVal.length !== newVal.length;
     $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(animate);
   });

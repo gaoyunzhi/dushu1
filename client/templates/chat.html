@@ -4,10 +4,10 @@
   </ion-nav-buttons>
   <ion-content class="chat" delegate-handle="chatScroll">
     <div class="message-list">
-      <div ng-repeat="message in chat.messages" class="message-wrapper">
+      <div ng-repeat="message in messages" ng-init="text=getText(message)" class="message-wrapper">
         <div class="message" ng-class="message.type === 'send' ? 'message-mine' : 'message-other'">
-          <div class="text">{{chat.text.text}}</div> 
-          <span class="message-timestamp">{{chat.text.timestamp | amDateFormat: 'HH:MM'}}</span>
+          <div class="text">{{text.text}}</div> 
+          <span class="message-timestamp">{{text.timestamp | amDateFormat: 'HH:mm'}}</span>
         </div>
       </div>
     </div>

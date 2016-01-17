@@ -12,14 +12,16 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
   this.closeKeyboard = closeKeyboard;
   this.helpers({
     messages() {
-      return Messages.find({ user_id: $scope.currentUser._id });
+      console.log("yunzhi_4");
+      messages = Messages.find({ user_id: $scope.currentUser._id });
+      messages.forEach(message => {
+        text = Text.find({_id: message.text_id});
+        message.text = text;
+      });
+      console.log(messages);
+      return messages;
     },
   });
-
-  function texts(message) {
-    console.log(message, 'yunzhi_m');
-    return Text.find({_id: message.text_id});
-  }
 
   function sendMessage() {
     if (_.isEmpty(this.message)) return;

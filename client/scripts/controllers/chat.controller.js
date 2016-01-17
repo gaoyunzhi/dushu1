@@ -11,7 +11,12 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
       // then you need to get the related Categories for the articles
       $scope.getText = function(message) {
         return $scope.$meteorObject(Text, message.text_id);
-      }
+      };
+
+      $scope.getAuthor = function(text) {
+        user = $scope.$meteorObject(Meteor.users, text.user_id);
+        return {name: user.profile.name, wechat_id: user.profile.wechat_id};
+      };
   });
  
   let isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
@@ -29,11 +34,7 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
   }
 
   $scope.$watchCollection('messages', (oldVal, newVal) => {
-    console.log(oldVal, newVal);
-    if (!oldVal || !newVal) {
-      return
-    }
-    let animate = oldVal.length !== newVal.length;
+    let animate = newVal && (!oldVal || oldVal.length !== newVal.length);
     $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(animate);
   });
 

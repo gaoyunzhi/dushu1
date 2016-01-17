@@ -17,10 +17,16 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
       messages.forEach(message => {
         text = Text.find({_id: message.text_id});
         message.text = text;
+        console.log(text);
       });
       console.log(messages);
       return messages;
     },
+
+    text() {
+      console.log(this);
+      return {};
+    }
   });
 
   function sendMessage() {

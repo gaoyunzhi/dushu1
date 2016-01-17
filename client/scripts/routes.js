@@ -30,15 +30,6 @@ function config($stateProvider, $urlRouterProvider) {
         }
       }  
     })
-    .state('tab.chat.message', {
-      url: '/message',
-      views: {
-        'tab-chat-message': {
-          templateUrl: 'client/templates/text.html',
-          controller: 'TextCtrl as text'
-        }
-      } 
-    })
     .state('tab.profile', {
       url: '/profile',
       views: {

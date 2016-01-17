@@ -16,13 +16,11 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
     messages() {
       return Messages.find({ user_id: $scope.currentUser._id });
     },
-    text(message) {
-      return Text.find({message.text_id})
-    }
-    data() {
-      return Chats.findOne(chatId);
-    }
   });
+
+  function texts(message) {
+    return Text.find({_id: message.text_id});
+  }
 
   function sendMessage() {
     if (_.isEmpty(this.message)) return;
@@ -57,19 +55,6 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
  
   function closeKeyboard () {
     // cordova.plugins.Keyboard.close();
-  }
-
-  function sendPicture () {
-    MeteorCameraUI.getPicture({}, (err, data) => {
-      if (err && err.error == 'cancel') return;
-      if (err) return handleError(err);
- 
-      Meteor.call('newMessage', {
-        picture: data,
-        type: 'picture',
-        chatId: chatId
-      });
-    });
   }
  
   function handleError (err) {

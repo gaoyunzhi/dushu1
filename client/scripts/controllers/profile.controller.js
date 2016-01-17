@@ -4,7 +4,6 @@ angular
  
 function ProfileCtrl($scope, $rootScope, $reactive, $state) {
   $reactive(this).attach($scope);
-  console.log($scope.currentUser);
   this.logout = logout;
 
   function logout() {

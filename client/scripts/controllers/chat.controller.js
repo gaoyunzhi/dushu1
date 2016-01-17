@@ -5,18 +5,20 @@ angular
 function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeout, $ionicPopup, $log) {
   $reactive(this).attach($scope);
  
-  let chatId = $stateParams.chatId;
   let isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
   this.sendMessage = sendMessage
   this.inputUp = inputUp;
   this.inputDown = inputDown;
   this.closeKeyboard = closeKeyboard;
   this.sendPicture = sendPicture;
-
+  console.log($scope);
   this.helpers({
     messages() {
-      return Messages.find({ chatId: chatId });
+      return Messages.find({ user_id: $scope.currentUser._id });
     },
+    text(message) {
+      return Text.find({message.text_id})
+    }
     data() {
       return Chats.findOne(chatId);
     }
@@ -25,11 +27,7 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
   function sendMessage() {
     if (_.isEmpty(this.message)) return;
  
-    Meteor.call('newMessage', {
-      text: this.message,
-      type: 'text',
-      chatId: chatId
-    });
+    Meteor.call('newMessage', this.message);
  
     delete this.message;
   }

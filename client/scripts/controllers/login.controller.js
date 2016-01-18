@@ -7,8 +7,6 @@ function LoginCtrl($scope, $reactive, $state, $ionicLoading, $ionicPopup, $log) 
  
   this.login = login;
   this.gotoRegister = gotoRegister;
-
-  Meteor.loginWithPassword({username: 'b'}, 'b'); // testing
  
   function login() {
     Meteor.loginWithPassword({username: this.email}, this.password, (err) => {

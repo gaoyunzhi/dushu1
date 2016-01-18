@@ -1,8 +1,7 @@
 angular
   .module('Root', [
     'angular-meteor',
-    'ionic',
-    'angularMoment'
+    'ionic'
   ]);
  
 if (Meteor.isCordova) {

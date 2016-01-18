@@ -5,6 +5,9 @@ angular
 function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeout, $ionicPopup, $log) {
   $reactive(this).attach($scope);
 
+  Meteor.call('newMessage', '《古文观止》'); // testing
+ 
+
   $scope.$meteorSubscribe('messages').then(function() {
       // This swill get you the articles from the local collection
       $scope.messages = $scope.$meteorCollection(Messages);

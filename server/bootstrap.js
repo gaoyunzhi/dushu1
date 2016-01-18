@@ -7,8 +7,8 @@ Meteor.startup(function () {
     username: Meteor.settings.admin.email,
     password: Meteor.settings.admin.password,
     profile: {
-      wechat_id: 'fenxiangdushu',
-      name: '阿云'
+      name: '阿云',
+      wechat_id: 'fenxiangdushu'
     }
   });
 });

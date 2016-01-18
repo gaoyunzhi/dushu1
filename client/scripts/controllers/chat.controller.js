@@ -10,11 +10,11 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
       $scope.messages = $scope.$meteorCollection(Messages);
       // then you need to get the related Categories for the articles
       $scope.getText = function(message) {
-        return $scope.$meteorObject(Text, message.text_id);
+        return Text.findOne(message.text_id);
       };
 
       $scope.getAuthor = function(text) {
-        user = $scope.$meteorObject(Meteor.users, text.user_id);
+        user = Meteor.users.findOne(text.user_id);
         return {name: user.profile.name, wechat_id: user.profile.wechat_id};
       };
   });

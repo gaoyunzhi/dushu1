@@ -1,9 +1,3 @@
-// Meteor.publish('users', function () {
-//   return Meteor.users.find({}, { 
-//     fields: { 'profile.wechat_id': 1, 'profile.name': 1 } 
-//   });
-// });
-
 Meteor.publishComposite('messages', function () {
   if (! this.userId) return;
  

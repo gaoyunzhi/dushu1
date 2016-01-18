@@ -10,9 +10,6 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
       $scope.messages = $scope.$meteorCollection(Messages);
       // then you need to get the related Categories for the articles
       $scope.getText = function(message) {
-        console.log(message.text_id);
-        console.log(Text.findOne(message.text_id));
-        console.log("yunzhi1");
         return Text.findOne(message.text_id);
       };
 

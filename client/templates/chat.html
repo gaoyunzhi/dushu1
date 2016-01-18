@@ -2,11 +2,11 @@
   <ion-nav-buttons side="right">
     <button class="button button-clear"><img class="header-picture" ng-src="{{  }}"></button>
   </ion-nav-buttons>
-  <ion-content class="chat" delegate-handle="chatScroll">
+  <ion-content class="chat" delegate-handle="chatScroll" overflow-scroll="true">
     <div class="message-list">
       <div ng-repeat="message in messages" ng-init="text=getText(message); author=getAuthor(text);" class="message-wrapper">
         <div class="message" ng-class="message.type === 'send' ? 'message-mine' : 'message-other'">
-          <div class="text">{{text.text}} by {{author.name}} ({{author.wechat_id}})</div> 
+          <div class="text selectable">{{text.text}} by {{author.name}} ({{author.wechat_id}})</div> 
           <span class="message-timestamp">{{text.timestamp | amDateFormat: 'HH:mm'}}</span>
         </div>
       </div>

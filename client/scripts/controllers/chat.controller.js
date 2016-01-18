@@ -15,7 +15,6 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
 
       $scope.getAuthor = function(text) {
         user = $scope.$meteorObject(Meteor.users, text.user_id);
-        console.log(text.user_id, user, user.profile,  "aaa");
         return {name: user.profile.name, wechat_id: user.profile.wechat_id};
       };
   });

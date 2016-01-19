@@ -7,15 +7,7 @@ function config($stateProvider, $urlRouterProvider) {
     .state('tab', {
       url: '/tab',
       abstract: true,
-      templateUrl: 'client/templates/tabs.html',
-      resolve: {
-        user() {
-          if (!Meteor.user()) {
-            throw 'AUTH_REQUIRED';
-          }
-          return Meteor.user();
-        },
-      }
+      templateUrl: 'client/templates/tabs.html'
     })
     .state('tab.chat', {
       url: '/chat',
@@ -41,6 +33,14 @@ function config($stateProvider, $urlRouterProvider) {
           templateUrl: 'client/templates/profile.html',
           controller: 'ProfileCtrl as profile',
         }
+      },
+      resolve: {
+        user() {
+          if (!Meteor.user()) {
+            throw 'AUTH_REQUIRED';
+          }
+          return Meteor.user();
+        },
       }
     })
     .state('login', {

@@ -1,9 +1,23 @@
 Meteor.publishComposite('messages', function () {
-  if (! this.userId) return;
- 
+
   return {
     find() {
-      return Messages.find({ user_id: this.userId });
+      var messages = [];
+      Messages.find().forEach(message => {
+        if (message.user_id ==  this.userId) {
+          return messages.push(message);
+        }
+        var text = Text.find({ _id: message.text_id });
+        if (text.user_id == ADMIN._id) {
+          return;
+        }
+        var content = message.text || text.text;
+        if ((content.length > TEXT_MIN_LENGTH) && 
+          (!is_bad_content(content))) {
+          return messages.push(message); 
+        }
+        return;
+      })
     },
     children: [
       {

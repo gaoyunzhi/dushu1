@@ -24,6 +24,32 @@ Meteor.publishComposite('messages', function () {
   };
 });
 
+Meteor.publishComposite('allMessages', function () {
+  if (this.userId !== ADMIN._id) return;
+ 
+  return {
+    find() {
+      return Messages.find();
+    },
+    children: [
+      {
+        find(message) {
+          return Text.find({ _id: message.text_id });
+        },
+        children: [
+          {
+            find(text) {
+              return Meteor.users.find(
+                {_id: text.user_id}, 
+                {fields: {profile: 1}});
+            }
+          }
+        ],  
+      }
+    ]
+  };
+});
+
 // I know publish composite should publish all children automatically
 // but apparently it's not doing so.
 Meteor.publish('text', function () {

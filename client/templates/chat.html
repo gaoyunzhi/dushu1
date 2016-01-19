@@ -7,12 +7,14 @@
       <div ng-repeat="message in messages" ng-init="text=getText(message); author=getAuthor(text);" class="message-wrapper">
         <div ng-if="text">
           <div class="message" ng-class="message.type === 'send' ? 'message-mine' : 'message-other'">
-            <div class="text selectable">
-              <pre>{{text.text}}</pre>
-            </div> 
-            <span class="message-timestamp">
-              <span ng-if="author">{{author.name}} ({{author.wechat_id}})</span> {{text.timestamp | calendar}}
-            </span>
+            <div class="selectable text-wrapper">
+              <div class="text">
+                <pre>{{text.text}}</pre>
+              </div> 
+              <span class="message-timestamp">
+                <span ng-if="author">{{author.name}} ({{author.wechat_id}})</span> {{text.timestamp | calendar}}
+              </span>
+            </div>
           </div>
         </div>  
       </div>

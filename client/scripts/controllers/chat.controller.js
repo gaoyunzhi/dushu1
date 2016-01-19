@@ -4,17 +4,22 @@ angular
  
 function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeout, $ionicPopup, $log) {
   $reactive(this).attach($scope);
+  Meteor.subscribe('messages');
+  Meteor.subscribe('text');
   
   $scope.$meteorSubscribe('messages').then(function() {
       // This swill get you the articles from the local collection
       $scope.messages = $scope.$meteorCollection(Messages);
       // then you need to get the related Categories for the articles
-      $scope.getText = function(message) {
+      $scope.getText1 = function(message) {
         return Text.findOne(message.text_id);
       };
 
       $scope.getAuthor = function(text) {
-        user = Meteor.users.findOne(text.user_id);
+        if (!text) {
+          return;
+        }
+        var user = Meteor.users.findOne(text.user_id);
         return {name: user.profile.name, wechat_id: user.profile.wechat_id};
       };
   });

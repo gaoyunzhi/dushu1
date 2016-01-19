@@ -14,7 +14,7 @@ function LoginCtrl($scope, $reactive, $state, $ionicLoading, $ionicPopup, $log) 
         return handleError(err);
       }
       $state.go('tab.chat');
-      Meteor.call('welcome');
+      Meteor.call('welcomeBack');
     });
   }
 

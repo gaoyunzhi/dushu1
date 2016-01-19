@@ -29,6 +29,7 @@ function RegisterCtrl($scope, $reactive, $state, $stateParams, $ionicLoading, $i
         if (err) {
           return handleError(err);
         }
+        Meteor.call('welcome');
         $state.go('tab.chat');
       }
     );

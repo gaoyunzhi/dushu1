@@ -5,12 +5,14 @@
   <ion-content class="chat" delegate-handle="chatScroll" overflow-scroll="true">
     <div class="message-list">
       <div ng-repeat="message in messages" ng-init="text=getText(message); author=getAuthor(text);" class="message-wrapper">
-        <div class="message" ng-class="message.type === 'send' ? 'message-mine' : 'message-other'">
-          <div class="text selectable">{{text.text}}</div> 
-          <span class="message-timestamp">
-            <span ng-if="author">{{author.name}} ({{author.wechat_id}})</span> {{text.timestamp | calendar}}
-          </span>
-        </div>
+        <div ng-if="text">
+          <div class="message" ng-class="message.type === 'send' ? 'message-mine' : 'message-other'">
+            <div class="text selectable">{{text.text}}</div> 
+            <span class="message-timestamp">
+              <span ng-if="author">{{author.name}} ({{author.wechat_id}})</span> {{text.timestamp | calendar}}
+            </span>
+          </div>
+        </div>  
       </div>
     </div>
   </ion-content>

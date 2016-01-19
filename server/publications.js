@@ -23,3 +23,12 @@ Meteor.publishComposite('messages', function () {
     ]
   };
 });
+
+// I know publish composite should publish all children automatically
+// but apparently it's not doing so.
+Meteor.publish('text', function () {
+  if (! this.userId) return;
+  var messages = Messages.find({ user_id: this.userId });
+  var text_ids = messages.map(message => message.text_id);
+  return Text.find( { _id : { $in :  text_ids} } );
+});

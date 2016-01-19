@@ -46,7 +46,6 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
   $scope.autoExpand = function(e) {
       var element = typeof e === 'object' ? e.target : document.getElementById(e);
       var scrollHeight = element.scrollHeight;
-      console.log(e);
       if (element.textLength == 0) {
         element.style.height = '40px';
       } else {

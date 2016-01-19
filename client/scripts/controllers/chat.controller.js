@@ -23,19 +23,6 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
         return {name: user.profile.name, wechat_id: user.profile.wechat_id};
       };
   });
-  $scope.$meteorSubscribe('text').then(function() {
-    $scope.text = $scope.$meteorCollection(Text);
-    $scope.getText2 = function(message) {
-      var text = Text.findOne(message.text_id);
-      console.log(text, message, $scope.text);
-      $scope.text.forEach(item => {
-         if (item._id == message.text_id) {
-          return item;
-         } 
-      });
-      return text;
-    }
-  });
 
   let isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
   this.sendMessage = sendMessage
@@ -91,14 +78,5 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
  
   function closeKeyboard () {
     // cordova.plugins.Keyboard.close();
-  }
- 
-  function handleError (err) {
-    $log.error('profile save error ', err);
-    $ionicPopup.alert({
-      title: err.reason || 'Save failed',
-      template: 'Please try again',
-      okType: 'button-positive button-clear'
-    });
   }
 }

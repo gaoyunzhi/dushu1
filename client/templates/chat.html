@@ -19,13 +19,16 @@
   <ion-footer-bar keyboard-attach class="bar-stable footer-chat item-input-inset">
 
     <label class="item-input-wrapper">
-      <input
+      <textarea
+              ng-keyup="autoExpand($event)"
               ng-model="chat.message"
               dir="auto"
               type="text"
               on-return="chat.sendMessage(); chat.closeKeyboard()"
               on-focus="chat.inputUp()"
-              on-blur="chat.inputDown()"/>
+              on-blur="chat.inputDown()"
+              class="input">
+      </textarea>        
     </label>
 
     <span ng-if="chat.message.length > 0">

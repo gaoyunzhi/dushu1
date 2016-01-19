@@ -1,11 +1,11 @@
 angular
   .module('Root')
-  .directive('input', input);
+  .directive('textarea', textarea);
  
 // The directive enable sending message when tapping return
 // and expose the focus and blur events to adjust the view
 // when the keyboard opens and closes
-function input ($timeout) {
+function textarea ($timeout) {
   return {
     restrict: 'E',
     scope: {
@@ -37,7 +37,7 @@ function input ($timeout) {
     });
  
     element.bind('keydown', function (e) {
-      if (e.which != 13) return;
+      if (e.which != 13 || e.metaKey || e.shiftKey) return;
  
       if (scope.returnClose) {
         element[0].blur();

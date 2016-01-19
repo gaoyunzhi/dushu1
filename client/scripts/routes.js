@@ -24,6 +24,14 @@ function config($stateProvider, $urlRouterProvider) {
           controller: 'ChatCtrl as chat'
         }
       }, 
+      resolve: {
+        messages() {
+          return Meteor.subscribe('messages');
+        },
+        text() {
+          return Meteor.subscribe('text');
+        }
+      }
     })
     .state('tab.profile', {
       url: '/profile',

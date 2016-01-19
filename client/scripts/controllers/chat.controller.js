@@ -23,6 +23,19 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
         return {name: user.profile.name, wechat_id: user.profile.wechat_id};
       };
   });
+  $scope.$meteorSubscribe('text').then(function() {
+    $scope.text = $scope.$meteorCollection(Text);
+    $scope.getText2 = function(message) {
+      var text = Text.findOne(message.text_id);
+      console.log(text, message, $scope.text);
+      $scope.text.forEach(item => {
+         if (item._id == message.text_id) {
+          return item;
+         } 
+      });
+      return text;
+    }
+  });
 
   let isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
   this.sendMessage = sendMessage
@@ -42,6 +55,21 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
     let animate = newVal && (!oldVal || oldVal.length !== newVal.length);
     $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(animate);
   });
+
+  $scope.autoExpand = function(e) {
+      var element = typeof e === 'object' ? e.target : document.getElementById(e);
+      var scrollHeight = element.scrollHeight;
+      console.log(e);
+      if (element.textLength == 0) {
+        element.style.height = '40px';
+      } else {
+        element.style.height = scrollHeight + "px"; 
+      }   
+  };
+  
+  function expand() {
+    $scope.autoExpand('TextArea');
+  }
 
   function inputUp () {
     if (isIOS) {

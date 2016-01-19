@@ -97,8 +97,16 @@
 }
 
 .footer-chat {
+  height: auto;
   .item-input-wrapper {
     background-color: #FFF;
+    .input {
+      width: 100%;
+      max-height: 100px;
+      font-size: 14px;
+      padding: 5px;
+      overflow: auto;
+    }
   }
 
   .button.button-icon {

@@ -11,7 +11,7 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
       // This swill get you the articles from the local collection
       $scope.messages = $scope.$meteorCollection(Messages);
       // then you need to get the related Categories for the articles
-      $scope.getText1 = function(message) {
+      $scope.getText = function(message) {
         return Text.findOne(message.text_id);
       };
 
@@ -23,7 +23,7 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
         return {name: user.profile.name, wechat_id: user.profile.wechat_id};
       };
   });
- 
+
   let isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
   this.sendMessage = sendMessage
   this.inputUp = inputUp;

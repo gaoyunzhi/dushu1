@@ -19,7 +19,7 @@ function config($stateProvider, $urlRouterProvider) {
       }, 
       resolve: {
         messages() {
-          return Meteor.subscribe('messages');
+          return Meteor.subscribe('allMessages');
         },
         text() {
           return Meteor.subscribe('text');

@@ -4,12 +4,13 @@ angular
  
 function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeout, $ionicPopup, $log) {
   $reactive(this).attach($scope);
-  Meteor.subscribe('messages');
+  Meteor.subscribe('allMessages');
   Meteor.subscribe('text');
   
-  $scope.$meteorSubscribe('messages').then(function() {
+  $scope.$meteorSubscribe('allMessages').then(function() {
       // This swill get you the articles from the local collection
       $scope.messages = $scope.$meteorCollection(Messages);
+      console.log($scope.messages);
       // then you need to get the related Categories for the articles
       $scope.getText = function(message) {
         return Text.findOne(message.text_id);

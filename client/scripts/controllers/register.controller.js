@@ -8,6 +8,8 @@ function RegisterCtrl($scope, $reactive, $state, $stateParams, $ionicLoading, $i
   this.register = register;
   this.email = $stateParams.email;
   this.password = $stateParams.password;
+  this.gotoLogin = gotoLogin;
+  this.gotoChat = gotoChat;
   function register() {
     if (this.password_retype != this.password) {
       return handleError({reason: 'Password does not match'}); 
@@ -43,5 +45,13 @@ function RegisterCtrl($scope, $reactive, $state, $stateParams, $ionicLoading, $i
       template: 'Please try again',
       okType: 'button-positive button-clear'
     });
+  }
+
+  function gotoLogin() {
+    $state.go('login');
+  }
+
+  function gotoChat() {
+    $state.go('tab.chat')
   }
 }

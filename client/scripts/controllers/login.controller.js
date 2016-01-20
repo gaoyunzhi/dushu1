@@ -7,6 +7,7 @@ function LoginCtrl($scope, $reactive, $state, $ionicLoading, $ionicPopup, $log) 
  
   this.login = login;
   this.gotoRegister = gotoRegister;
+  this.gotoChat = gotoChat;
  
   function login() {
     Meteor.loginWithPassword({username: this.email}, this.password, (err) => {
@@ -30,5 +31,9 @@ function LoginCtrl($scope, $reactive, $state, $ionicLoading, $ionicPopup, $log) 
       template: 'Please try again',
       okType: 'button-positive button-clear'
     });
+  }
+
+  function gotoChat() {
+    $state.go('tab.chat')
   }
 }

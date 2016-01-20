@@ -2,7 +2,7 @@ angular
   .module('Root')
   .controller('ChatCtrl', ChatCtrl);
  
-function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeout, $ionicPopup, $log) {
+function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeout, $ionicPopup, $log, $state) {
   $reactive(this).attach($scope);
   Meteor.subscribe('allMessages');
   Meteor.subscribe('text');
@@ -28,10 +28,11 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
   });
 
   $scope.getMessageClass = function(message) {
-    if (message.type === 'send' && message.user_id === Meteor.user()._id) {
+    if (message.type === 'send' && 
+      (!Meteor.user() || message.user_id === Meteor.user()._id)) {
       return 'message-mine';
     }
-    if (message.user_id === Meteor.user()._id) {
+    if (Meteor.user() && message.user_id === Meteor.user()._id) {
       return 'message-other message-to-me';
     }
     return 'message-other';
@@ -59,7 +60,7 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
     var messages =  val.slice();
     messages.sort((m1, m2) => m1.timestamp - m2.timestamp);
     $scope.messages = messages.filter(message => {
-      if (message.user_id ==  Meteor.user()._id) {
+      if (Meteor.user() && message.user_id ==  Meteor.user()._id) {
         return true;
       }
       var text = Text.findOne({ _id: message.text_id });
@@ -122,5 +123,14 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
  
   function closeKeyboard () {
     // cordova.plugins.Keyboard.close();
+  }
+
+  $scope.gotoLogin = function() {
+    $state.go('login');
+  }
+
+
+  $scope.gotoRegister = function() {
+    $state.go('register');
   }
 }

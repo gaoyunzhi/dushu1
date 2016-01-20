@@ -27,6 +27,16 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
       };
   });
 
+  $scope.getMessageClass = function(message) {
+    if (message.type === 'send' && message.user_id === Meteor.user()._id) {
+      return 'message-mine';
+    }
+    if (message.user_id === Meteor.user()._id) {
+      return 'message-other message-to-me';
+    }
+    return 'message-other';
+  }
+
   let isIOS = ionic.Platform.isWebView() && ionic.Platform.isIOS();
   this.sendMessage = sendMessage
   this.inputUp = inputUp;

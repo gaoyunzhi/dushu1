@@ -6,7 +6,7 @@
     <div class="message-list">
       <div ng-repeat="message in messages" ng-init="text=getText(message); author=getAuthor(text);" class="message-wrapper">
         <div ng-if="message.text || text">
-          <div class="message" ng-class="(message.type === 'send' && message.user_id === $root.currentUser._id) ? 'message-mine' : 'message-other'">
+          <div class="message" ng-class="getMessageClass(message)">
             <div class="selectable text-wrapper">
               <div class="text">
                 <pre>{{message.text || text.text}}</pre>

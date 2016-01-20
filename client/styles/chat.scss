@@ -54,6 +54,11 @@
     background-color: #FFF;
   }
 
+  &.message-to-me {
+    float: left;
+    background-color: #BFEFFF;
+  }
+
   &.message-other::before, &.message-mine::before, {
     content: "";
     position: absolute;

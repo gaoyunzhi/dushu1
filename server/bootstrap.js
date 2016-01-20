@@ -7,7 +7,7 @@ Meteor.startup(function () {
       password: Meteor.settings.admin.password,
       profile: {
         name: '阿云',
-        wechat_id: 'fenxiangdushu'
+        wechat_id: 'fenxiangdushu',
       }
     });
     Accounts.createUser({
@@ -21,4 +21,7 @@ Meteor.startup(function () {
   }
   ADMIN = Meteor.users.findOne({username: Meteor.settings.admin.email});
   CRAWLER = Meteor.users.findOne({username: Meteor.settings.crawler.email});
+  if (AdminID.find().count() == 0) {
+    AdminID.insert({admin_id: ADMIN._id});
+  }  
 });

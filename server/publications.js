@@ -27,6 +27,10 @@ Meteor.publishComposite('allMessages', function () {
   };
 });
 
+Meteor.publish('admin_id', function () {
+  return AdminID.find();  
+});
+
 // I know publish composite should publish all children automatically
 // but apparently it's not doing so.
 Meteor.publish('text', function () {

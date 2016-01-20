@@ -6,12 +6,33 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
   $reactive(this).attach($scope);
   Meteor.subscribe('allMessages');
   Meteor.subscribe('text');
-  
+  Meteor.subscribe('admin_id');
+  var admin_id = 0;
+  $scope.$meteorSubscribe('admin_id').then(function() {
+    admin_id = AdminID.findOne().admin_id;
+  });
   $scope.$meteorSubscribe('allMessages').then(function() {
-      // This swill get you the articles from the local collection
-      $scope.messages = $scope.$meteorCollection(Messages);
-      console.log($scope.messages);
-      // then you need to get the related Categories for the articles
+      var messages = $scope.$meteorCollection(Messages);
+      $scope.messages = messages.filter(message => {
+        if (message.user_id ==  this.userId) {
+          return true;
+        }
+        var text = Text.findOne({ _id: message.text_id });
+        if (text.user_id == admin_id) {
+          return false;
+        }
+        var content = message.text || text.text;
+        if (!content) {
+          return false;
+        }
+        if ((content.length > TEXT_MIN_LENGTH) &&
+          (!is_bad_content(content))) {
+          return true;
+        }
+        return false;
+      })
+
+    
       $scope.getText = function(message) {
         return Text.findOne(message.text_id);
       };

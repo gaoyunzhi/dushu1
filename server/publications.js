@@ -1,11 +1,12 @@
 MAX_MESSAGE = 100;
 
-Meteor.publishComposite('allMessages', function () {
+Meteor.publishComposite('allMessages', function (num_message) {
+  console.log(num_message);
   return {
     find() {
       return Messages.find({}, {
         sort: {timestamp: -1}, 
-        limit: MAX_MESSAGE
+        limit: num_message || MAX_MESSAGE
       });  
     },
     children: [

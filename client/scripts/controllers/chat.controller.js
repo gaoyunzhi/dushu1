@@ -4,9 +4,11 @@ angular
  
 function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeout, $ionicPopup, $log, $state) {
   $reactive(this).attach($scope);
-  Meteor.subscribe('allMessages');
   Meteor.subscribe('text');
   Meteor.subscribe('admin_id');
+  Tracker.autorun(function() {
+    Meteor.subscribe('allMessages', Session.get('numMessages'));
+  });
   var admin_id = 0;
   $scope.$meteorSubscribe('admin_id').then(function() {
     admin_id = AdminID.findOne().admin_id;
@@ -55,6 +57,7 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
   this.inputUp = inputUp;
   this.inputDown = inputDown;
   this.closeKeyboard = closeKeyboard;
+  this.loadMore = loadMore;
 
   function sendMessage() {
     if (_.isEmpty(this.message)) return;
@@ -76,10 +79,13 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
         return true;
       }
       var text = Text.findOne({ _id: message.text_id });
-      if (text.user_id == admin_id) {
+      if (text && text.user_id == admin_id) {
         return false;
       }
-      var content = message.text || text.text;
+      var content = message.text || (text && text.text);
+      if (!content) {
+        return false;
+      }
       if (Meteor.user() && content.indexOf(Meteor.user().profile.name) !== -1) {
         return true; // not sure if this will case issue. product decision though.
       }
@@ -138,6 +144,13 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
  
   function closeKeyboard () {
     // cordova.plugins.Keyboard.close();
+  }
+
+  function loadMore() {
+    var num_messages = Session.get('numMessages');
+    if (!num_messages) {num_messages = 100;}
+    num_messages += 100; // to lazy to add constant.
+    Session.set('numMessages', num_messages);
   }
 
   $scope.gotoLogin = function() {

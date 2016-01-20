@@ -13,8 +13,9 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
   });
   $scope.$meteorSubscribe('allMessages').then(function() {
       var messages = $scope.$meteorCollection(Messages);
+      messages.reverse();
       $scope.messages = messages.filter(message => {
-        if (message.user_id ==  this.userId) {
+        if (message.user_id ==  Meteor.user()._id) {
           return true;
         }
         var text = Text.findOne({ _id: message.text_id });

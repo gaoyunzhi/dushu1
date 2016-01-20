@@ -6,13 +6,13 @@
     <div class="message-list">
       <div ng-repeat="message in messages" ng-init="text=getText(message); author=getAuthor(text);" class="message-wrapper">
         <div ng-if="message.text || text">
-          <div class="message" ng-class="message.type === 'send' ? 'message-mine' : 'message-other'">
+          <div class="message" ng-class="(message.type === 'send' && message.user_id === $root.currentUser._id) ? 'message-mine' : 'message-other'">
             <div class="selectable text-wrapper">
               <div class="text">
                 <pre>{{message.text || text.text}}</pre>
               </div> 
               <span class="message-timestamp">
-                <span ng-if="author">{{author.name}} ({{author.wechat_id}})</span> {{text.timestamp | calendar}}
+                <span ng-if="author">{{author.name}} ({{author.wechat_id}})</span> {{message.timestamp | calendar}}
               </span>
             </div>
           </div>

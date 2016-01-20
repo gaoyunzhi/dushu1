@@ -1,4 +1,4 @@
-MAX_MESSAGE = 1000;
+MAX_MESSAGE = 100;
 
 Meteor.publishComposite('allMessages', function () {
   return {

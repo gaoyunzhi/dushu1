@@ -12,27 +12,7 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
     admin_id = AdminID.findOne().admin_id;
   });
   $scope.$meteorSubscribe('allMessages').then(function() {
-      var messages = $scope.$meteorCollection(Messages);
-      messages.reverse();
-      $scope.messages = messages.filter(message => {
-        if (message.user_id ==  Meteor.user()._id) {
-          return true;
-        }
-        var text = Text.findOne({ _id: message.text_id });
-        if (text.user_id == admin_id) {
-          return false;
-        }
-        var content = message.text || text.text;
-        if (!content) {
-          return false;
-        }
-        if ((content.length > TEXT_MIN_LENGTH) &&
-          (!is_bad_content(content))) {
-          return true;
-        }
-        return false;
-      })
-
+      $scope.raw_messages = $scope.$meteorCollection(Messages);
     
       $scope.getText = function(message) {
         return Text.findOne(message.text_id);
@@ -61,9 +41,41 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
     delete this.message;
   }
 
-  $scope.$watchCollection('messages', (oldVal, newVal) => {
-    let animate = newVal && (!oldVal || oldVal.length !== newVal.length);
-    $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom(animate);
+  $scope.$watchCollection('raw_messages', (newVal, oldVal) => {
+    var val = newVal || oldVal;
+    if (!val) {
+      return;
+    }
+    var messages =  val.slice();
+    messages.sort((m1, m2) => m1.timestamp - m2.timestamp);
+    $scope.messages = messages.filter(message => {
+      if (message.user_id ==  Meteor.user()._id) {
+        return true;
+      }
+      var text = Text.findOne({ _id: message.text_id });
+      if (text.user_id == admin_id) {
+        return false;
+      }
+      var content = message.text || text.text;
+      if (!content) {
+        return false;
+      }
+      if ((content.length > TEXT_MIN_LENGTH) &&
+        (!is_bad_content(content))) {
+        return true;
+      }
+      return false;
+    })
+  });
+
+  $scope.$watchCollection('messages', (newVal, oldVal) => {
+    if (oldVal && newVal && oldVal.length && newVal.length) {
+      if (oldVal[oldVal.length-1].timestamp == 
+        newVal[newVal.length-1].timestamp) {
+        return;
+      }
+    }
+    $ionicScrollDelegate.$getByHandle('chatScroll').scrollBottom();
   });
 
   $scope.autoExpand = function(e) {

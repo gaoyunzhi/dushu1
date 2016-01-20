@@ -27,12 +27,24 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
       };
   });
 
+  $scope.findText = function(message) {
+    if (message.text) {
+      return message.text;
+    }
+    var text = Text.findOne(message.text_id);
+    if (!text) {
+      return '';
+    }
+    return text.text;
+  }
+
   $scope.getMessageClass = function(message) {
     if (message.type === 'send' && 
       (!Meteor.user() || message.user_id === Meteor.user()._id)) {
       return 'message-mine';
     }
-    if (Meteor.user() && message.user_id === Meteor.user()._id) {
+    if (Meteor.user() && (message.user_id === Meteor.user()._id || 
+      $scope.findText(message).indexOf(Meteor.user().profile.name) !== -1)) {
       return 'message-other message-to-me';
     }
     return 'message-other';
@@ -68,6 +80,9 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
         return false;
       }
       var content = message.text || text.text;
+      if (Meteor.user() && content.indexOf(Meteor.user().profile.name) !== -1) {
+        return true; // not sure if this will case issue. product decision though.
+      }
       if (!content) {
         return false;
       }

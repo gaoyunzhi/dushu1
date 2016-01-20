@@ -8,12 +8,12 @@
         <div ng-if="message.text || text">
           <div class="message" ng-class="getMessageClass(message)">
             <div class="selectable text-wrapper">
+              <div class="message-timestamp">
+                <span ng-if="author">{{author.name}} ({{author.wechat_id}})</span> {{message.timestamp | calendar}}
+              </div>
               <div class="text">
                 <pre>{{message.text || text.text}}</pre>
               </div> 
-              <span class="message-timestamp">
-                <span ng-if="author">{{author.name}} ({{author.wechat_id}})</span> {{message.timestamp | calendar}}
-              </span>
             </div>
           </div>
         </div>  

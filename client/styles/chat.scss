@@ -18,7 +18,7 @@
   padding-left: 5%;
   padding-right: 5%;
   padding-top: 0;
-  padding-bottom: 50px;
+  padding-bottom: 60px;
 }
 
 .message-wrapper {
@@ -83,11 +83,6 @@
   .text {
     -webkit-user-select: auto;
     word-wrap: break-word;
-
-    &::after {
-      content: " \00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0\00a0";
-      display: inline;
-    }
   }
 
   .picture {
@@ -101,10 +96,6 @@
   }
 
   .message-timestamp {
-    margin-left: 30px;
-    position: absolute;
-    bottom: 2px;
-    right: 7px;
     color: gray;
     font-size: 12px;
   }

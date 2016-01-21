@@ -1,7 +1,6 @@
 MAX_MESSAGE = 100;
 
 Meteor.publishComposite('allMessages', function (num_message) {
-  console.log(num_message);
   return {
     find() {
       return Messages.find({}, {

@@ -9,6 +9,7 @@ function AdminViewCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $
   $scope.$meteorSubscribe('allMessages').then(function() {
       // This swill get you the articles from the local collection
       $scope.messages = $scope.$meteorCollection(Messages);
+      $scope.messages.sort((m1, m2) => m1.timestamp - m2.timestamp);
       // then you need to get the related Categories for the articles
       $scope.getText = function(message) {
         return Text.findOne(message.text_id);

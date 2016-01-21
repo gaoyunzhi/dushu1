@@ -10,6 +10,11 @@
       <div ng-repeat="message in messages" ng-init="text=getText(message); author=getAuthor(text);" class="message-wrapper">
         <div ng-if="message.text || text">
           <div class="message" ng-class="getMessageClass(message)">
+            <div class="message-profile">
+              <span ng-if="author">
+                {{> avatar user=author shape="circle"}}
+              </span>
+            </div>
             <div class="selectable text-wrapper">
               <div class="message-timestamp">
                 <span ng-if="author">{{author.name}} ({{author.wechat_id}})</span> {{message.timestamp | calendar}}

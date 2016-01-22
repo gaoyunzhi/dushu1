@@ -21,6 +21,16 @@
   padding-bottom: 60px;
 }
 
+.message-profile {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color:#fff;
+  text-align:center;
+  line-height:38px;
+  background:#808080
+}
+
 .message-wrapper {
   margin-bottom: 9px;
 
@@ -54,16 +64,31 @@
   &.message-mine {
     float: right;
     background-color: #DCF8C6;
+    .message-profile {
+      float: right;
+    }
   }
 
   &.message-other {
     float: left;
     background-color: #FFF;
+    .message-profile {
+      float: left;
+    }
+    .message-timestamp {
+      margin-left: 40px;
+    }
   }
 
   &.message-to-me {
     float: left;
     background-color: #BFEFFF;
+    .message-profile {
+      float: left;
+    }
+    .message-timestamp {
+      margin-left: 48px;
+    }
   }
 
   &.message-other::before, &.message-mine::before, {

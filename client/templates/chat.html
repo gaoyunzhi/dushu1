@@ -11,11 +11,9 @@
         <div ng-if="message.text || text">
           <div class="message" ng-class="getMessageClass(message)">
             <div class="message-profile">
-              <span ng-if="author">
-                <blaze-template name="avatar">
-                  {{ >avatar user="author" shape="circle"}}
-                </blaze-template>
-              </span>
+              <div ng-if="author">
+                {{author.name.slice(0,2)}}
+              </div>
             </div>
             <div class="selectable text-wrapper">
               <div class="message-timestamp">

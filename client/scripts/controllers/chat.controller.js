@@ -9,7 +9,6 @@ function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeo
   Tracker.autorun(function() {
     Meteor.subscribe('allMessages', Session.get('numMessages'));
   });
-  console.log($location.search());
   if (!_.isEmpty($location.search().post)) {
     Meteor.call('newMessage', $location.search().post);
   }

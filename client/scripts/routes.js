@@ -11,6 +11,7 @@ function config($stateProvider, $urlRouterProvider) {
     })
     .state('tab.chat', {
       url: '/chat',
+      params: {post: null, other: null},
       views: {
         'tab-chat': {
           templateUrl: 'client/templates/chat.html',

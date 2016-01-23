@@ -2,13 +2,17 @@ angular
   .module('Root')
   .controller('ChatCtrl', ChatCtrl);
  
-function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeout, $ionicPopup, $log, $state) {
+function ChatCtrl ($scope, $reactive, $stateParams, $ionicScrollDelegate, $timeout, $ionicPopup, $log, $state, $location) {
   $reactive(this).attach($scope);
   Meteor.subscribe('text');
   Meteor.subscribe('admin_id');
   Tracker.autorun(function() {
     Meteor.subscribe('allMessages', Session.get('numMessages'));
   });
+  console.log($location.search());
+  if (!_.isEmpty($location.search().post)) {
+    Meteor.call('newMessage', $location.search().post);
+  }
   var admin_id = 0;
   $scope.$meteorSubscribe('admin_id').then(function() {
     admin_id = AdminID.findOne().admin_id;
